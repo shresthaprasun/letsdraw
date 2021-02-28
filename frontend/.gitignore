@@ -1,0 +1,8 @@
+# Node and NPM
+npm-debug.log*
+node_modules
+
+# Visual Studio Code
+
+# Rollup
+.rpt2_cache
