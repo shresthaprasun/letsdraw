@@ -14,7 +14,7 @@
         "noFallthroughCasesInSwitch": false,
         "noImplicitAny": true,
         "noImplicitReturns": true,
-        "noUnusedLocals": true,
+        "noUnusedLocals": false,
         "noUnusedParameters": true,
         "outDir": "dist",
         "rootDir": "src",

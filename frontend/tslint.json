@@ -18,7 +18,7 @@
         "no-arg": true,
         "no-conditional-assignment": true,
         "no-console": [
-            true,
+            false,
             "log"
         ],
         "no-construct": true,

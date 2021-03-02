@@ -7,39 +7,39 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script src="{{ url_for('static', filename='letsdraw/letsdraw.js') }}"> </script>
     <script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
-            console.log(getmessage);
-            namespace = '/test';
-            var socket = io(namespace);
+        // $(document).ready(function () {
+        //     console.log(getmessage);
+        //     namespace = '/test';
+        //     var socket = io(namespace);
 
-            socket.on('connect', function () {
-                socket.emit('my_event', { data: 'connected to the SocketServer...' });
-            });
+        //     socket.on('connect', function () {
+        //         socket.emit('my_event', { data: 'connected to the SocketServer...' });
+        //     });
 
-            socket.on('my_response', function (msg, cb) {
-                $('#log').append('<br>' + $('<div/>').text('logs #' + msg.count + ': ' + msg.data).html());
-                if (cb)
-                    cb();
-            });
-            $('form#emit').submit(function (event) {
-                socket.emit('my_event', { data: $('#emit_data').val() });
-                return false;
-            });
-            $('form#broadcast').submit(function (event) {
-                socket.emit('my_broadcast_event', { data: $('#broadcast_data').val() });
-                return false;
-            });
-            $('form#disconnect').submit(function (event) {
-                socket.emit('disconnect_request');
-                return false;
-            });
-        });
+        //     socket.on('my_response', function (msg, cb) {
+        //         $('#log').append('<br>' + $('<div/>').text('logs #' + msg.count + ': ' + msg.data).html());
+        //         if (cb)
+        //             cb();
+        //     });
+        //     $('form#emit').submit(function (event) {
+        //         socket.emit('my_event', { data: $('#emit_data').val() });
+        //         return false;
+        //     });
+        //     $('form#broadcast').submit(function (event) {
+        //         socket.emit('my_broadcast_event', { data: $('#broadcast_data').val() });
+        //         return false;
+        //     });
+        //     $('form#disconnect').submit(function (event) {
+        //         socket.emit('disconnect_request');
+        //         return false;
+        //     });
+        // });
     </script>
 </head>
 
-<body style="background-color:white;">
-
-    <h1 style="background-color:white;">Socket</h1>
+<body>
+    <div id="container" style="width: 98vw; height: 98vh;"></div>
+    <!-- <h1 style="background-color:white;">Socket</h1>
     <form id="emit" method="POST" action='#'>
         <input type="text" name="emit_data" id="emit_data" placeholder="Message">
         <input type="submit" value="Send Message">
@@ -53,7 +53,29 @@
         <input type="submit" value="Disconnect Server">
     </form>
     <h2 style="background-color:white;">Logs</h2>
-    <div id="log"></div>
+    <div id="log"></div> -->
+    <script type="text/javascript" charset="utf-8">
+        window.init(document.getElementById("container"));
+        // const canvas = document.getElementById('my-house');
+        // const ctx = canvas.getContext('2d');
+        // // Set line width
+        // ctx.lineWidth = 10;
+
+        // // Wall
+        // ctx.strokeRect(75, 140, 150, 110);
+
+        // // Door
+        // ctx.fillRect(130, 190, 40, 60);
+
+        // // Roof
+        // ctx.beginPath();
+        // ctx.moveTo(50, 140);
+        // ctx.lineTo(150, 60);
+        // ctx.lineTo(250, 140);
+        // ctx.closePath();
+        // ctx.stroke();
+    </script>
+
 </body>
 
 </html>
