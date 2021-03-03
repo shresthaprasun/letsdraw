@@ -1,3 +1,5 @@
+// import * as SocketIO from "socket.io-client";
+
 interface IPoint {
     x: number;
     y: number;
@@ -26,6 +28,11 @@ window["init"] = (parent: HTMLElement): void => {
     let start: IPoint = { x: 0, y: 0 };
     let topleft: IPoint = { x: 0, y: 0 };
     let lod: number = 0;
+
+    // const socket = SocketIO.io();
+    // socket.on("connect", function (): void {
+    //     socket.emit("connect", { data: "connected to the SocketServer..." });
+    // });
 
     canvas.oncontextmenu = (event: MouseEvent): void => {
         event.preventDefault();
@@ -71,11 +78,28 @@ window["init"] = (parent: HTMLElement): void => {
         if (isprimaryPointerDown) {
             ctx.lineTo(event.pageX, event.pageY);
             ctx.stroke();
+            const xBatch = [];
+            const yBatch = [];
+            const colorBatch = [];
+            for (let i = -10; i < 10; ++i) {
+                for (let j = -10; j < 10; ++j) {
+                    const pixel = ctx.getImageData(event.pageX + i, event.pageY + i, 1, 1);
+                    if (pixel.data["3"] !== 0) {
+                        xBatch.push(Math.floor(event.pageX));
+                        yBatch.push(Math.floor(event.pageY));
+                        colorBatch.push(pixel.data);
+                    }
+                    // socket.emit("uploadPixelInfo", { x:event.pageX, y:event.pageY, color:pixel.data});
+
+                }
+            }
+
+            window["emit"]("uploadPixelInfo", { x: xBatch, y: yBatch, color: colorBatch });
         }
         if (isSecondaryPointerDown) {
 
-            const pageX　= Math.floor(event.pageX);
-            const pageY　= Math.floor(event.pageY);
+            const pageX = Math.floor(event.pageX);
+            const pageY = Math.floor(event.pageY);
             console.log("page", pageX, pageY);
             const diff: IPoint = { x: pageX - start.x, y: pageY - start.y };
             let panData: ImageData | undefined = undefined;
@@ -151,4 +175,5 @@ window["init"] = (parent: HTMLElement): void => {
         isprimaryPointerDown = false;
         isSecondaryPointerDown = false;
     });
+
 };

@@ -3,6 +3,7 @@
     factory();
 }((function () { 'use strict';
 
+    // import * as SocketIO from "socket.io-client";
     window["init"] = function (parent) {
         var canvas = document.createElement("canvas");
         canvas.setAttribute("touch-action", "none");
@@ -25,6 +26,10 @@
         var isSecondaryPointerDown = false;
         var start = { x: 0, y: 0 };
         var topleft = { x: 0, y: 0 };
+        // const socket = SocketIO.io();
+        // socket.on("connect", function (): void {
+        //     socket.emit("connect", { data: "connected to the SocketServer..." });
+        // });
         canvas.oncontextmenu = function (event) {
             event.preventDefault();
         };
@@ -64,6 +69,21 @@
             if (isprimaryPointerDown) {
                 ctx.lineTo(event.pageX, event.pageY);
                 ctx.stroke();
+                var xBatch = [];
+                var yBatch = [];
+                var colorBatch = [];
+                for (var i = -10; i < 10; ++i) {
+                    for (var j = -10; j < 10; ++j) {
+                        var pixel = ctx.getImageData(event.pageX + i, event.pageY + i, 1, 1);
+                        if (pixel.data["3"] !== 0) {
+                            xBatch.push(Math.floor(event.pageX));
+                            yBatch.push(Math.floor(event.pageY));
+                            colorBatch.push(pixel.data);
+                        }
+                        // socket.emit("uploadPixelInfo", { x:event.pageX, y:event.pageY, color:pixel.data});
+                    }
+                }
+                window["emit"]("uploadPixelInfo", { x: xBatch, y: yBatch, color: colorBatch });
             }
             if (isSecondaryPointerDown) {
                 var pageX = Math.floor(event.pageX);

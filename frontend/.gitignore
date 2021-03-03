@@ -1,6 +1,8 @@
 # Node and NPM
 npm-debug.log*
 node_modules
+venv/src/__pycache__
+.vscode
 
 # Visual Studio Code
 

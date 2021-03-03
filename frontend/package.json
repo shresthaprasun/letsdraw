@@ -7,8 +7,8 @@
     "build": "npm run clean && npm run fix && rollup -c rollup.config.js --environment BUILD:development",
     "clean": "rimraf dist",
     "fix": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}'",
-    "qrelease": "npm run clean && npm run fix && rollup -c rollup.config.js --environment BUILD:production && for %f in (dist/orizuru-ifc.js dist/orizuru-ifc.es.js) do uglifyjs %f --c --m --source-map --output dist/%~nf.min.js",
-    "release": "npm run clean && npm run fix && tslint src/**/*.ts && npm run test && rollup -c rollup.config.js --environment BUILD:production && for %f in (dist/orizuru-ifc.js dist/orizuru-ifc.es.js) do uglifyjs %f --c --m --source-map --output dist/%~nf.min.js",
+    "qrelease": "npm run clean && npm run fix && rollup -c rollup.config.js --environment BUILD:production",
+    "release": "npm run clean && npm run fix && tslint src/**/*.ts && npm run test && rollup -c rollup.config.js --environment BUILD:production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "shresthaprasun",
@@ -19,6 +19,7 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript2": "^0.30.0",
+    "socket.io-client": "^3.1.2",
     "ts-loader": "^8.0.17",
     "tslint": "^6.1.3",
     "typescript": "^4.2.2",

@@ -56,6 +56,29 @@
     <div id="log"></div> -->
     <script type="text/javascript" charset="utf-8">
         window.init(document.getElementById("container"));
+        namespace = '/';
+        var socket = io(namespace);
+
+        socket.on('connect', function () {
+            // socket.emit('connect', { data: 'connected to the SocketServer...' });
+        });
+
+        socket.on('pixelEditted', function (msg, cb) {
+            console.log("message received", msg);
+            if (cb) cb();
+        });
+        // $('form#emit').submit(function (event) {
+        //     socket.emit('my_event', { data: $('#emit_data').val() });
+        //     return false;
+        // });
+        window["emit"] = function (eventString, data) {
+            socket.emit(eventString, data["x"], data["y"], data["color"]);
+        }
+
+        // $('form#disconnect').submit(function (event) {
+        //     socket.emit('disconnect_request');
+        //     return false;
+        // });
         // const canvas = document.getElementById('my-house');
         // const ctx = canvas.getContext('2d');
         // // Set line width
